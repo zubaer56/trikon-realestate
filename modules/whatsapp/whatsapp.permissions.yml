@@ -1,0 +1,3 @@
+whatsapp configuration form:
+  title: 'WhatsApp Configuration Form'
+  restrict access: true

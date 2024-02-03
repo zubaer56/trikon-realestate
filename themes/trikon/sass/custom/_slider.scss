@@ -1,0 +1,139 @@
+#slider {
+	overflow: hidden;
+	.region-slider {
+		
+		.view-content {
+			.carousel-indicators {
+				@include sm {
+					display:none;
+				}
+				@include md {
+					padding-bottom: 0px;
+				}
+				opacity: 1;
+				padding-bottom: 20px;
+				bottom:0;
+				opacity: .4;
+				z-index: 1;
+				li {
+					margin-right: 4px;
+					border-radius: 0px;
+					transform: rotateZ(45deg);
+					@include md {
+						height: 7px;
+						width: 7px;
+					}
+				}
+				.active {
+					@include md {
+						height: 7px;
+						width: 7px;
+					}
+				}
+			}
+			.carousel-inner {
+				.item {
+					img {
+						width: 100%;
+					}
+					.carousel-caption {
+						background: rgba(0,0,0,.5);
+						left: 0;
+						top: 0;
+						height: 100%;
+						width: 100%;
+						@include md {
+							top:0%;
+						}
+						h3 {
+							padding-top: 250px;
+							font-size: 50px;
+							font-weight: 600;
+							color: #fff;
+							text-decoration: none;
+							
+							@include md {
+								padding: 0 15px;
+								font-size: 20px;
+							}
+						}
+						p {
+							padding: 0 15px;
+							font-size: 20px;
+						}
+					}
+				}
+			}
+			.left {
+				.glyphicon-chevron-left {
+					&:before {
+						content: ' ';
+					}
+				}
+			}
+			.right {
+				.glyphicon-chevron-right {
+					&:before {
+						content: ' ';
+					}
+				}
+			}
+		}
+		
+	}
+}
+
+@include md {
+	#slider{
+		.region-slider {
+			.slider_wrapper {
+				.view-content {
+					.carousel-inner {
+						.item {
+							.carousel-caption {
+								h3 {
+									font-size: 20px;
+									a {
+										color: #fff;
+										text-decoration: none;
+									}
+								}
+								p {
+									font-size: 14px;
+								}
+							}
+						}
+					}
+				}
+			}
+		}	
+	}
+} 
+
+@include sm {
+	#slider{
+		.region-slider {
+			.slider_wrapper {
+				.view-content {
+					.carousel-inner {
+						.item {
+							.carousel-caption {
+								top: 0%;
+								h3 {
+									font-size: 16px;
+									a {
+										color: #fff;
+										text-decoration: none;
+									}
+								}
+								p {
+									font-size: 12px;
+								}
+							}
+						}
+					}
+				}
+			}
+		}	
+	}
+} 

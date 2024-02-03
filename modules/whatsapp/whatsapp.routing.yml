@@ -1,0 +1,7 @@
+whatsapp.settings_form:
+  path: '/admin/config/services/whatsapp'
+  defaults:
+    _form: '\Drupal\whatsapp\Form\WhatsappSettingsForm'
+    _title: 'WhatsApp Settings'
+  requirements:
+    _permission: 'whatsapp configuration form'

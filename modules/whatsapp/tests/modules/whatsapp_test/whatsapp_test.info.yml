@@ -1,0 +1,10 @@
+name: WhatsApp Block Test
+type: module
+description: Module with key config for testing purposes
+package: Testing
+hidden: true
+
+# Information added by Drupal.org packaging script on 2022-02-25
+version: '1.0.0'
+project: 'whatsapp'
+datestamp: 1645783059

@@ -1,0 +1,93 @@
+.block-views-blockprojects-block-1 {
+  text-align: center;
+}
+.block-views-blockprojects-block-1 .view-header {
+  text-align: center;
+}
+.block-views-blockprojects-block-1 .view-header h2 {
+  color: #f9a426;
+}
+.block-views-blockprojects-block-1 .view-header h2 span {
+  color: black;
+}
+.block-views-blockprojects-block-1 .view-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+  padding: 30px;
+}
+.block-views-blockprojects-block-1 .view-content .nav-tabs {
+  text-align: center;
+  display: inline-block;
+}
+.block-views-blockprojects-block-1 .view-content .tab-content .views-field-field-image .field-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
+  padding: 30px;
+  overflow: hidden;
+}
+.block-views-blockprojects-block-1 .view-content .tab-content .views-field-field-image .field-content img {
+  width: 100%;
+}
+
+.projects .field--name-field-image img {
+  width: 100%;
+  object-fit: cover;
+}
+.projects .field--type-text-with-summary h2 {
+  margin: 0;
+  text-align: center;
+  padding: 100px 0;
+  color: white;
+  font-weight: 600;
+}
+.projects .field--type-text-with-summary h2 span {
+  color: #f9a426;
+}
+.projects .field--type-text-with-summary p iframe {
+  width: 100%;
+}
+.projects .field--type-text-with-summary img {
+  width: 100%;
+  object-fit: contain;
+}
+.projects .field--name-field-project-highlights {
+  background-image: url("../images/right.jpeg");
+  height: 700px;
+  background-repeat: round;
+}
+.projects .field--name-field-project-highlights p {
+  width: 50%;
+  color: white;
+  padding: 0px 30px;
+}
+.projects .field--name-field-project-at-a-glance-image,
+.projects .field--name-field-project-at-a-glance {
+  width: 50%;
+  float: left;
+}
+.projects .field--name-field-project-at-a-glance-image img,
+.projects .field--name-field-project-at-a-glance img {
+  width: 100%;
+}
+.projects .field--name-field-project-at-a-glance-image p,
+.projects .field--name-field-project-at-a-glance p {
+  padding: 0 30px;
+}
+.projects .field--name-field-floor-plans {
+  display: grid;
+  width: 100%;
+}
+.projects .field--name-field-project-at-a-glance h2,
+.projects .field--name-field-floor-plans h2,
+.projects .field--name-field-project-location h2 {
+  color: black;
+  padding: 30px 0;
+  font-weight: bold;
+}
+.projects .field--name-field-project-at-a-glance h2 span,
+.projects .field--name-field-floor-plans h2 span,
+.projects .field--name-field-project-location h2 span {
+  color: #f9a426;
+}

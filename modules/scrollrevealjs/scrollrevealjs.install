@@ -1,0 +1,72 @@
+<?php
+
+/**
+ * @file
+ * Install, uninstall Requirements functions for the ScrollReveal JS module.
+ */
+
+define('SCROLLREVEALJS_DOWNLOAD_URL', 'https://github.com/jlmakes/scrollreveal/archive/master.zip');
+
+/**
+ * Implements hook_requirements().
+ */
+function scrollrevealjs_requirements($phase) {
+  if ($phase != 'runtime') {
+    return [];
+  }
+
+  $requirements = [];
+
+  // Check ScrollReveal.js javascript library is exists.
+  /** @var Drupal\Core\Asset\LibraryDiscovery $library_discovery */
+  $library_discovery = \Drupal::service('library.discovery');
+  $library_scroll_js = $library_discovery->getLibraryByName('scrollrevealjs', 'scrollreveal-local');
+  $library_exists_js = FALSE;
+
+  // Check if $library_scroll_js is an array before accessing its elements.
+  if (is_array($library_scroll_js) && isset($library_scroll_js['js'][0]['data'])) {
+    $library_exists_js = file_exists(DRUPAL_ROOT . '/' . $library_scroll_js['js'][0]['data']);
+  }
+
+  // Check if the user has suppressed the library warning in ScrollReveal UI.
+  $suppress_warning = \Drupal::configFactory()->get('scrollrevealjs.settings')->get('hide');
+
+  // Show the status of the library in the status report section.
+  if ($library_exists_js) {
+    $description = t('The ScrollReveal.js library was available in the local libraries path and enabled.');
+  }
+  else {
+    $description = t('The ScrollReveal.js library is using <strong>CDN</strong> and is not installed in your local libraries.<br>You can <a href="@downloadUrl" rel="external" target="_blank">download</a> and extract to "/libraries/scrollreveal" then check file exists in your Drupal installation directory at the correct path "/libraries/scrollreveal/dist/scrollreveal.min.js".<br>See the ScrollReveal JS module README file for more details.', [
+      '@downloadUrl' => SCROLLREVEALJS_DOWNLOAD_URL,
+    ]);
+    // Returns TRUE for the library if the library
+    // warning was hidden when using the CDN method.
+    if ($suppress_warning) {
+      $library_exists_js = TRUE;
+    }
+  }
+
+  $requirements['scrollrevealjs'] = [
+    'title'       => t('ScrollReveal.js library'),
+    'value'       => $library_exists_js ? t('Installed') : t('Not installed'),
+    'severity'    => $library_exists_js ? REQUIREMENT_OK : REQUIREMENT_ERROR,
+    'description' => $description,
+  ];
+
+  return $requirements;
+}
+
+/**
+ * Implements hook_install().
+ */
+function scrollrevealjs_install() {
+  // Check for ScrollReveal.js javascript library installation.
+  $library_exists = scrollrevealjs_check_installed();
+  if (!$library_exists) {
+    \Drupal::messenger()->addWarning(t('The ScrollReveal JS module requires the ScrollReveal.js javascript library.<br>Currently, the ScrollReveal.js is loaded via <strong>CDN</strong> and is not available in your local libraries.<br>Please <a href=":downloadUrl">Download</a> and unzip into /libraries/scrollreveal directory.', [
+      ':downloadUrl' => SCROLLREVEALJS_DOWNLOAD_URL,
+    ]));
+  }
+
+  \Drupal::messenger()->addStatus(t('Thanks for installing ScrollReveal JS module.'));
+}

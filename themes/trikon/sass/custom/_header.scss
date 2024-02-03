@@ -1,0 +1,255 @@
+#navbar {
+	background-color:#00000054;
+	border: unset;
+	border-radius: 0px;
+	color: #222;
+	margin-bottom: 0px;
+	width: 100%;
+	z-index: 10;
+	transition: all 1s;
+	position: fixed;
+	.logo {
+		img{
+			height: 60px;
+		}
+	}
+	.navbar-collapse {
+		float: right;
+		padding-top: 15px;
+		#block-trikon-main-menu {
+			.navbar-nav{
+				li{
+					font-size: 15px;
+					font-weight: 600;
+					
+					.navbar-text{
+						margin: 0;
+						color: white;
+						padding-bottom: 27px;
+					}
+					.dropdown-menu {
+						background-color: $orange;
+						border: 0;
+						min-width: 105px;
+						padding-top: 30px;
+						
+						li {
+							padding-right: 28px;
+
+							a{
+								&:hover{
+									color: #000000;
+								}
+							}
+
+							ul {
+								a{
+									&:hover{
+										color: $orange;
+									}
+								}
+							}
+						}
+						.first{
+							padding-right: 52px;
+						}
+						.last {
+							padding-right: 50px;
+						}
+
+						li{
+							&:hover{
+								ul{
+									display: block;
+									top: 0px;
+									left: 170px;
+									background-color: #00000054;
+								}
+							}
+						}
+						
+					}
+					.navbar-text,
+					a,
+					.dropdown-toggle{
+						color: white;
+						padding-bottom: 15px;
+						&:hover{
+							color: $orange;
+						}
+					}
+				}
+			}
+		}
+		
+		.navbar-brand {
+			color:#faa018;
+			text-transform: uppercase;
+			padding-top: 40px;
+			font-size: 25px;
+		}
+
+		.navbar-nav{
+			margin-top: 15px;
+			li {
+				display: inline-block;
+				.navbar-text,
+				a,
+				.dropdown-toggle {
+					background: no-repeat;
+					display: inline-block;
+					color: #000000;
+					font-size: 15px;
+					font-weight: 600;
+					text-decoration: none;
+					padding: 0px 20px;
+					transition:all .5s;
+					@include md {
+						display: inline-block;
+						color:#000000;
+						font-size: 15px;
+						font-weight: 500;
+						text-decoration: none;
+						padding: 0px 20px;
+						transition: all .5s;
+						padding: 10px 20px;
+					}
+					&:after {
+						content:' ';
+						display: block;
+						width: 0%;
+						height: 2px;
+						background: $banana-leaf;
+						transition: width .5s;
+						margin-top: 10px;
+					}
+					&:hover{
+						&:after {
+							width: 100%;
+						}
+					}
+					&.is-active {
+						&:after {
+							width: 100%;
+						}
+					}
+					@include lg {
+						font-size: 14px;
+						padding: 0px 18px;
+					}
+				}
+			}
+		}
+		
+	}
+	.collapse.in {
+		@include sm {
+			height: 1080px;
+		}
+		@include md {
+			height: 1080px;
+		}
+	}
+	&.sticky_header {
+		position: fixed;
+		background-color:#00000054;
+		box-shadow: 0 0 5px;
+		border: 0;
+		transition: all 1s;
+		z-index: 10;
+		top: 0;
+			.navbar-collapse {
+			.logo {
+				img {
+					height: 60px;
+					
+					transition:.5s;
+				}
+			}
+			.header_main {
+			float: right;
+				.navbar-nav{
+					padding-top: 40px;
+					li {
+						display: inline-block;
+						a {
+							color: #000000;
+							font-size: 14px;
+							font-weight: 300;
+							@include md {
+								font-size: 15px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@include md {
+	#navbar {
+		background-color: #ffffff;
+		.navbar-collapse {
+			.header_main {
+				width: 100%;
+				float:left;
+				.navbar-nav {
+					li {
+						display: block;
+						a {
+							color: #222;
+						}
+					}
+				}
+			}
+		}
+		&.sticky_header {
+			.navbar-collapse {
+				.header_main {
+					width: 100%;
+					float:left;
+					.navbar-nav {
+						li {
+							display: block;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.mini-header {
+	height: 50px;
+	background-color: #faa018;
+	.inner {
+		text-align: right;
+		padding: 10px 15px;
+		a{
+			color: white;
+			font-size: 20px;
+			padding-right: 20px;
+		}
+		.htline {
+			.hotline {
+				background: black;
+				color: white;
+				border-bottom-left-radius: 15px;
+				border-top-left-radius: 15px;
+				padding: 5px 10px;
+			}
+			.number{
+				background: white;
+				color: black;
+				border-bottom-right-radius: 15px;
+				border-top-right-radius: 15px;
+				padding: 5px 10px;
+				margin-left: -5px;
+			}
+		}
+	}
+}
+.dropdown:hover > .dropdown-menu {
+	display: block;
+}

@@ -1,0 +1,45 @@
+load: true
+debug: false
+hide: false
+method: local
+minimized:
+  options: true
+url:
+  visibility: '0'
+  pages:
+    - '/admin*'
+    - '/imagebrowser*'
+    - '/img_assist*'
+    - '/imce*'
+    - '/node/add*'
+    - '/node/*/edit'
+    - '/print/*'
+    - '/printpdf/*'
+    - '/system/ajax'
+    - '/system/ajax/*'
+options:
+  distance: 0
+  delay: 0
+  duration: 600
+  easing: 'cubic-bezier'
+  interval: 0
+  opacity: 0
+  origin: 'bottom'
+  scale: 1
+  rotate:
+    x: 0
+    y: 0
+    z: 0
+configs:
+  container: 'document.documentElement'
+  cleanup: false
+  reset: true
+  desktop: true
+  mobile: true
+  useDelay: 'always'
+  viewFactor: 0.0
+  viewOffset:
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0

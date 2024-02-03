@@ -1,0 +1,25 @@
+{
+    "name": "drupal/whatsapp",
+    "description": "This module provides a widget messaging link for WhatsApp service",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://www.drupal.org/project/whatsapp",
+    "authors": [
+        {
+            "name": "Manuel Egío",
+            "homepage": "https://www.drupal.org/u/facine"
+        },
+        {
+            "name": "Beatriz Galiana",
+            "homepage": "https://www.drupal.org/u/beagaliana"
+        }
+    ],
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/whatsapp",
+        "source": "https://git.drupalcode.org/project/whatsapp"
+    },
+    "require": {
+        "drupal/core": "^9 || ^10",
+        "drupal/key": "^1.15"
+    }
+}

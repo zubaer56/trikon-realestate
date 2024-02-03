@@ -1,0 +1,10 @@
+name: 'ScrollReveal JS'
+type: module
+description: 'Integrates ScrollReveal.js, is a JavaScript library for easily animating elements as they enter/leave the viewport.'
+core_version_requirement: ^8 || ^9 || ^10
+package: User interface
+
+# Information added by Drupal.org packaging script on 2023-11-15
+version: '1.0.0-alpha1'
+project: 'scrollrevealjs'
+datestamp: 1700073506

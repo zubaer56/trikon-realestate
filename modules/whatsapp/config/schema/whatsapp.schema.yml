@@ -1,0 +1,16 @@
+# Schema for the configuration files of the WhatsApp module.
+
+block.settings.whatsapp_block:
+  type: block_settings
+  label: 'WhatsApp block'
+
+whatsapp.settings:
+  type: config_object
+  label: 'WhatsApp settings'
+  mapping:
+    widget_key:
+      type: string
+      label: 'widget_key to render the whatsapp widget'
+    langcode:
+      type: string
+      label: 'Language code'

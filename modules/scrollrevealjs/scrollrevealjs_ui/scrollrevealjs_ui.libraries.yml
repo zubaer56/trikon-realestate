@@ -1,0 +1,81 @@
+scrollreveal.js:
+  remote: https://scrollrevealjs.org
+  version: 4.0.9
+  license:
+    name: MIT
+    url: https://www.opensource.org/licenses/mit-license.php
+    gpl-compatible: true
+  js:
+    /libraries/scrollreveal/dist/scrollreveal.min.js: { minified: true }
+
+scrollreveal.dev:
+  remote: https://scrollrevealjs.org
+  version: 4.0.9
+  license:
+    name: MIT
+    url: https://www.opensource.org/licenses/mit-license.php
+    gpl-compatible: true
+  js:
+    /libraries/scrollreveal/dist/scrollreveal.js: { }
+
+scrollreveal.cdn:
+  remote: https://scrollrevealjs.org
+  version: 4.0.9
+  license:
+    name: MIT
+    url: https://www.opensource.org/licenses/mit-license.php
+    gpl-compatible: true
+  js:
+    '//unpkg.com/scrollreveal/dist/scrollreveal.min.js': { type: external, minified: true }
+
+scrollreveal.cdn.dev:
+  remote: https://scrollrevealjs.org
+  version: 4.0.9
+  license:
+    name: MIT
+    url: https://www.opensource.org/licenses/mit-license.php
+    gpl-compatible: true
+  js:
+    '//unpkg.com/scrollreveal/dist/scrollreveal.js': { type: external }
+
+scrollreveal-list:
+  version: VERSION
+  css:
+    theme:
+      css/scrollreveal.admin.css: { }
+
+scrollreveal-form:
+  version: VERSION
+  css:
+    theme:
+      css/scrollreveal.admin.css: { }
+  js:
+    js/scrollreveal.form.js: { }
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+
+scrollreveal-settings:
+  version: VERSION
+  css:
+    theme:
+      css/scrollreveal.admin.css: { }
+  js:
+    js/scrollreveal.settings.js: { }
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+
+scrollreveal-init:
+  version: VERSION
+  js:
+    js/scrollreveal.init.js: { }
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/once

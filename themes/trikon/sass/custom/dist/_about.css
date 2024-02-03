@@ -1,0 +1,19 @@
+.mission-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+  padding: 30px;
+  text-align: center;
+}
+.mission-content .inner img {
+  width: 300px;
+  padding-bottom: 30px;
+}
+
+.csr {
+  padding: 30px 50px;
+}
+
+.field--name-body img {
+  width: auto;
+}

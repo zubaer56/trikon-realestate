@@ -1,0 +1,5 @@
+scrollreveal.add:
+  route_name: scrollreveal.add
+  title: 'Add target'
+  appears_on:
+    - scrollreveal.admin

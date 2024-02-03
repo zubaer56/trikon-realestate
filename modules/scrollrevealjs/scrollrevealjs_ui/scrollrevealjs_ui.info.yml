@@ -1,0 +1,13 @@
+name: 'ScrollReveal JS UI'
+type: module
+description: 'ScrollReveal.js library configuration UI.'
+core_version_requirement: ^8 || ^9 || ^10
+package: User interface
+configure: scrollreveal.admin
+dependencies:
+  - scrollrevealjs:scrollrevealjs
+
+# Information added by Drupal.org packaging script on 2023-11-15
+version: '1.0.0-alpha1'
+project: 'scrollrevealjs'
+datestamp: 1700073506
