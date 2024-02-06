@@ -1,0 +1,15 @@
+.our-stories{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 100px 50px;
+    gap: 100px;
+    background: url(../images/our-stories.jpg);
+    align-items: center;
+    background-repeat: round;
+    color: white;
+
+    h2{
+        color: $orange;
+        font-weight: 600;
+    }
+}

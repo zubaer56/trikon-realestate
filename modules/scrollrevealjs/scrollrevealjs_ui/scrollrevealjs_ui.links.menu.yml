@@ -1,0 +1,5 @@
+scrollreveal.admin:
+  title: ScrollReveal JS
+  description: 'Configure global settings to use the ScrollReveal.js library.'
+  parent: system.admin_config_ui
+  route_name: scrollreveal.admin

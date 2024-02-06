@@ -1,0 +1,29 @@
+scrollreveal-local:
+  remote: https://scrollrevealjs.org
+  version: 4.0.9
+  license:
+    name: MIT
+    url: https://www.opensource.org/licenses/mit-license.php
+    gpl-compatible: true
+  js:
+    /libraries/scrollreveal/dist/scrollreveal.min.js: { minified: true }
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+
+scrollreveal-cdn:
+  remote: https://scrollrevealjs.org
+  version: 4.0.9
+  license:
+    name: MIT
+    url: https://www.opensource.org/licenses/mit-license.php
+    gpl-compatible: true
+  js:
+    '//unpkg.com/scrollreveal/dist/scrollreveal.min.js': { type: external, minified: true }
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/once

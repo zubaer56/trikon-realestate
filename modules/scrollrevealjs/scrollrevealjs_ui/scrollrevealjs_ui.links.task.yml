@@ -1,0 +1,9 @@
+scrollreveal.admin:
+  title: 'List'
+  route_name: scrollreveal.admin
+  base_route: scrollreveal.admin
+
+scrollreveal.settings:
+  title: 'Settings'
+  route_name: scrollreveal.settings
+  base_route: scrollreveal.admin

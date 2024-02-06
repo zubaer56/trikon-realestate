@@ -1,0 +1,9 @@
+.our-stories {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 100px 50px;
+  gap: 100px;
+  background: url(../images/center.jpeg);
+  align-items: center;
+  background-repeat: round;
+}

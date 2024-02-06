@@ -1,0 +1,115 @@
+scrollrevealjs.settings:
+  type: mapping
+  label: 'ScrollReveal Settings'
+  mapping:
+    load:
+      type: boolean
+      label: 'Load library'
+    debug:
+      type: boolean
+      label: 'Debug mode'
+    hide:
+      type: boolean
+      label: 'Hide warning'
+    method:
+      type: string
+      label: 'Loading library method'
+    minimized:
+      type: mapping
+      label: 'URL Visibility'
+      mapping:
+        options:
+          type: integer
+          label: 'Minimized'
+    url:
+      type: mapping
+      label: 'URL Visibility'
+      mapping:
+        visibility:
+          type: integer
+          label: 'Visibility'
+        pages:
+          type: array
+          label: 'Pages'
+    options:
+      type: mapping
+      label: 'Options Animation'
+      mapping:
+        distance:
+          type: integer
+          label: 'Offset'
+        delay:
+          type: integer
+          label: 'Delay'
+        duration:
+          type: integer
+          label: 'Duration'
+        easing:
+          type: string
+          label: 'Easing'
+        interval:
+          type: integer
+          label: 'Interval'
+        opacity:
+          type: float
+          label: 'Opacity'
+        origin:
+          type: string
+          label: 'Origin'
+        scale:
+          type: float
+          label: 'Scale'
+        rotate:
+          type: mapping
+          label: 'Rotate'
+          mapping:
+            x:
+              type: integer
+              label: 'Rotate X'
+            y:
+              type: integer
+              label: 'Rotate Y'
+            z:
+              type: integer
+              label: 'Rotate z'
+    configs:
+      type: mapping
+      label: 'Configs'
+      mapping:
+        container:
+          type: string
+          label: 'Container'
+        cleanup:
+          type: boolean
+          label: 'Cleanup'
+        reset:
+          type: boolean
+          label: 'Reset'
+        desktop:
+          type: boolean
+          label: 'Desktop'
+        mobile:
+          type: boolean
+          label: 'Mobile'
+        useDelay:
+          type: string
+          label: 'Use delay'
+        viewFactor:
+          type: float
+          label: 'View factor'
+        viewOffset:
+          type: mapping
+          label: 'Rotate'
+          mapping:
+            top:
+              type: integer
+              label: 'Top'
+            right:
+              type: integer
+              label: 'Right'
+            bottom:
+              type: integer
+              label: 'Bottom'
+            left:
+              type: integer
+              label: 'Left'

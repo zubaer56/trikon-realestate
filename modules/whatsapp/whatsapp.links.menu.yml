@@ -1,0 +1,5 @@
+whatsapp.settings:
+  title: 'WhatsApp settings'
+  parent: system.admin_config_services
+  description: 'Configure the widget key for the WhatsApp module.'
+  route_name: whatsapp.settings_form

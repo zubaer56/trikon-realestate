@@ -1,0 +1,193 @@
+<?php
+
+/**
+ * @file
+ * Drupal`s integration with ScrollReveal.js library.
+ *
+ * ScrollReveal - Animate elements as they scroll into view.
+ *
+ * Github:  https://github.com/jlmakes/scrollreveal
+ * Website: https://scrollrevealjs.org
+ * license: MIT licensed
+ *
+ * Copyright (C) 2016-2023 @jlmakes
+ */
+
+use Drupal\Core\Installer\InstallerKernel;
+use Drupal\Core\Url;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
+
+/**
+ * Implements hook_page_attachments().
+ */
+function scrollrevealjs_ui_page_attachments(array &$attachments) {
+  // Don't add the library during installation.
+  if (InstallerKernel::installationAttempted()) {
+    return;
+  }
+
+  // Load the ScrollReveal.js configuration settings.
+  $config = \Drupal::config('scrollrevealjs.settings');
+
+  // Attach ScrollReveal.js to pages with chosen version and method.
+  $method = scrollrevealjs_check_installed() ? $config->get('method') : 'cdn';
+
+  // Get the ScrollReveal.js library
+  // in debug mode and global configs.
+  $debug = $config->get('debug');
+  $configs = $config->get('configs');
+
+  // Checking the path to load ScrollReveal.js for demo examples,
+  // It's just in ScrollReveal UI configuration.
+  $currentPath = Url::fromRoute('<current>')->toString();
+  $settingPath = Url::fromRoute('scrollreveal.admin')->toString() . '/*';
+
+  if (\Drupal::service('path.matcher')->matchPath($currentPath, $settingPath)) {
+    $options = $config->get('options');
+    $options['target'] = '.scrollreveal__sample';
+
+    // Attach settings for admin sample preview.
+    $attachments['#attached']['drupalSettings']['scrollreveal']['debug'] = $debug;
+    $attachments['#attached']['drupalSettings']['scrollreveal']['configs'] = $configs;
+    $attachments['#attached']['drupalSettings']['scrollreveal']['options'] = $options;
+
+    // Attach ScrollReveal.js library for admin preview.
+    $attachments['#attached']['library'][] = 'scrollrevealjs_ui/scrollreveal.cdn.dev';
+
+    return TRUE;
+  }
+
+  // Don't include ScrollReveal.js library if the user has
+  // opted out of loading it or excluded from specified paths.
+  if (!$config->get('load') || !_scrollrevealjs_ui_check_url()) {
+    return TRUE;
+  }
+
+  // Check for load development and production version.
+  $variant_options = ['source', 'minified'];
+  $variant = $variant_options[$config->get('minimized.options')];
+  // Check if debug mode is enabled,
+  // then attach the unminified distribution immediately.
+  if ($method == 'cdn') {
+    // Check variant to load ScrollReveal.js from CDN.
+    if ($debug || $variant == 'source') {
+      $attachments['#attached']['library'][] = 'scrollrevealjs_ui/scrollreveal.cdn.dev';
+    }
+    else {
+      $attachments['#attached']['library'][] = 'scrollrevealjs_ui/scrollreveal.cdn';
+    }
+  }
+  else {
+    // Check variant to load ScrollReveal.js from local.
+    if ($debug || $variant == 'source') {
+      $attachments['#attached']['library'][] = 'scrollrevealjs_ui/scrollreveal.dev';
+    }
+    else {
+      $attachments['#attached']['library'][] = 'scrollrevealjs_ui/scrollreveal.js';
+    }
+  }
+
+  // Get selectors from config.
+  $elements = [];
+
+  // Load enabled ScrollReveal targets from database.
+  $results = \Drupal::service('scrollrevealjs.target_manager')->loadScrollReveal()->fetchAll();
+  if (count($results)) {
+    foreach ($results as $scrollreveal) {
+      $scrollreveal_options = unserialize($scrollreveal->options, ['allowed_classes' => FALSE]);
+      $elements[$scrollreveal->sid] = ['target' => $scrollreveal->target] + $scrollreveal_options;
+    }
+  }
+
+  // If there is ScrollReveal targets, then the init
+  // file with options will be added to the page.
+  if (count($elements)) {
+    // Export settings.
+    $attachments['#attached']['drupalSettings']['scrollreveal']['debug'] = $debug;
+    $attachments['#attached']['drupalSettings']['scrollreveal']['configs'] = $configs;
+    $attachments['#attached']['drupalSettings']['scrollreveal']['elements'] = $elements;
+
+    // Init ScrollReveal now.
+    $attachments['#attached']['library'][] = 'scrollrevealjs_ui/scrollreveal-init';
+  }
+}
+
+/**
+ * Check if ScrollReveal.js should be active for the current URL.
+ *
+ * @param \Symfony\Component\HttpFoundation\Request $request
+ *   The request to use if provided, otherwise \Drupal::request() will be used.
+ * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
+ *   The request stack.
+ *
+ * @return bool
+ *   TRUE if ScrollReveal.js should be active for the current page.
+ */
+function _scrollrevealjs_ui_check_url(Request $request = NULL, RequestStack $request_stack = NULL) {
+  if (!isset($request)) {
+    $request = \Drupal::request();
+  }
+
+  // Assume there are no matches until one is found.
+  $page_match = FALSE;
+
+  // Make it possible deactivate letting with
+  // parameter ?scrollreveal=no in the url.
+  $query = $request->query;
+  if ($query->get('scrollreveal') !== NULL && $query->get('scrollreveal') == 'no') {
+    return $page_match;
+  }
+
+  // Convert path to lowercase. This allows comparison of the same path
+  // with different case. Ex: /Page, /page, /PAGE.
+  $config = \Drupal::config('scrollrevealjs.settings');
+  $pages  = mb_strtolower(_scrollrevealjs_ui_array_to_string($config->get('url.pages')));
+  if (!$pages) {
+    return TRUE;
+  }
+  if (!isset($request_stack)) {
+    $request_stack = \Drupal::requestStack();
+  }
+  $current_request = $request_stack->getCurrentRequest();
+  // Compare the lowercase path alias (if any) and internal path.
+  $path = \Drupal::service('path.current')->getPath($current_request);
+  // Do not trim a trailing slash if that is the complete path.
+  $path = $path === '/' ? $path : rtrim($path, '/');
+  $langcode = \Drupal::languageManager()->getCurrentLanguage()->getId();
+  $path_alias = mb_strtolower(\Drupal::service('path_alias.manager')->getAliasByPath($path, $langcode));
+  $page_match = \Drupal::service('path.matcher')->matchPath($path_alias, $pages);
+  if ($path_alias != $path) {
+    $page_match = $page_match || \Drupal::service('path.matcher')->matchPath($path, $pages);
+  }
+  $page_match = $config->get('url.visibility') == 0 ? !$page_match : $page_match;
+
+  return $page_match;
+}
+
+/**
+ * Converts a text with lines (\n) into an array of lines.
+ *
+ * @return array
+ *   Array with as many items as non-empty lines in the text
+ */
+function _scrollrevealjs_ui_string_to_array($text) {
+  if (!is_string($text)) {
+    return NULL;
+  }
+  $text = str_replace("\r\n", "\n", $text);
+  return array_filter(explode("\n", $text), 'trim');
+}
+
+/**
+ * Converts an array of lines into a text with lines (\n).
+ *
+ * @return string
+ *   Text with lines
+ */
+function _scrollrevealjs_ui_array_to_string($array) {
+  if (!is_array($array)) {
+    return NULL;
+  }
+  return implode("\r\n", $array);
+}

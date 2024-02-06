@@ -1,0 +1,82 @@
+.footer {
+	background-color: $orange;
+	border-top: 0px;
+	margin-top: 0px;
+	.region-footer {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+
+		.block-title {
+			color: black;
+			font-weight: bold;
+			padding-bottom: 15px;
+		}
+
+		a{
+			color: white;
+			font-size: 20px;
+		}
+		p {
+			color: white;
+			font-size: 20px;
+		}
+		.services_footer,
+		.useful-links{
+			border-right: 3px solid white;
+    		margin-right: 50px;
+		}
+
+		#block-trikon-contactus {
+			.svg-inline--fa {
+				padding-right:15px ;
+			}
+			.phone{
+			 &::before{
+				font-family: "Font Awesome 5 Free";
+				font-weight: 900;
+				content: "\f095";
+				display: none;
+			 }
+			 	.fa-phone {
+					color: white;
+				}
+			}
+			.email {
+				&::before{
+					content: "\f0e0";
+					display: none;
+					font-family: "Font Awesome 5 Free";
+					font-weight: 900;
+				}
+				.fa-envelope {
+					color: white;
+				}
+			}
+		}
+	}
+}
+.mini-footer {
+	text-align: center;
+	p {
+		background-color: black;
+		color: white;
+		padding: 15px 0;
+	}
+}
+#block-trikon-logo {
+	border-right: 3px solid white;
+	margin-right: 50px;
+
+	.field--name-field-image {
+		padding: 15px;
+		display: flex;
+		justify-content: center;
+		img{
+			width: 100px;
+		}
+	}
+	.field--name-body {
+		padding-right: 25px;
+    	word-break: break-all;
+	}
+}

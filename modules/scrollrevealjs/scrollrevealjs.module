@@ -1,0 +1,113 @@
+<?php
+
+/**
+ * @file
+ * Drupal`s integration with ScrollReveal.js library.
+ *
+ * ScrollReveal - Animate elements as they scroll into view.
+ *
+ * Github:  https://github.com/jlmakes/scrollreveal
+ * Website: https://scrollrevealjs.org
+ * license: MIT licensed
+ *
+ * Copyright (C) 2016-2023 @jlmakes
+ */
+
+use Drupal\Core\Installer\InstallerKernel;
+
+/**
+ * Check to make sure that ScrollReveal.js library is installed.
+ *
+ * @return bool
+ *   Flag indicating if the library is properly installed.
+ */
+function scrollrevealjs_check_installed() {
+  // Throw error if ScrollReveal.js library file not found.
+  /** @var Drupal\Core\Asset\LibraryDiscovery $library_discovery */
+  $library_discovery = \Drupal::service('library.discovery');
+  $library_exists = FALSE;
+  $definition = $library_discovery->getLibraryByName('scrollrevealjs', 'scrollreveal-local');
+
+  // Check if $definition is an array before accessing its elements.
+  if (is_array($definition) && isset($definition['js'][0]['data'])) {
+    $library_exists = file_exists(DRUPAL_ROOT . '/' . $definition['js'][0]['data']);
+  }
+
+  return $library_exists;
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function scrollrevealjs_page_attachments(array &$attachments) {
+  // Don't add the Library during installation.
+  if (InstallerKernel::installationAttempted()) {
+    return;
+  }
+
+  // Check first ScrollReveal JS UI module is not installed.
+  $moduleHandler = \Drupal::service('module_handler');
+  if (!$moduleHandler->moduleExists('scrollrevealjs_ui') && !$moduleHandler->moduleExists('animatecss_scrollreveal')) {
+    // Check if the ScrollReveal.js library is installed,
+    // then load from local otherwise it will be used from CDN.
+    if (scrollrevealjs_check_installed()) {
+      $attachments['#attached']['library'][] = 'scrollrevealjs/scrollreveal-local';
+    }
+    else {
+      $attachments['#attached']['library'][] = 'scrollrevealjs/scrollreveal-cdn';
+    }
+  }
+}
+
+/**
+ * ScrollReveal.js origin options.
+ */
+function scrollrevealjs_origin_options() {
+  return [
+    'top'    => t('Top'),
+    'right'  => t('Right'),
+    'bottom' => t('Bottom'),
+    'left'   => t('Left'),
+  ];
+}
+
+/**
+ * ScrollReveal.js use delay options.
+ */
+function scrollrevealjs_use_delay_options() {
+  return [
+    'always' => t('Always'),
+    'once'   => t('Once'),
+    'onload' => t('Onload'),
+  ];
+}
+
+/**
+ * ScrollReveal.js easing function options.
+ */
+function scrollrevealjs_easing_functions() {
+  return [
+    'cubic-bezier'      => t('Cubic-bezier'),
+    'linear'            => t('Linear'),
+    'ease'              => t('Ease'),
+    'ease-in'           => t('Ease-in'),
+    'ease-out'          => t('Ease-out'),
+    'ease-in-out'       => t('Ease-in-out'),
+    'ease-in-back'      => t('Ease-in-back'),
+    'ease-out-back'     => t('Ease-out-back'),
+    'ease-in-out-back'  => t('Ease-in-out-back'),
+    'ease-in-sine'      => t('Ease-in-sine'),
+    'ease-out-sine'     => t('Ease-out-sine'),
+    'ease-in-out-sine'  => t('Ease-in-out-sine'),
+    'ease-in-quad'      => t('Ease-in-quad'),
+    'ease-out-quad'     => t('Ease-out-quad'),
+    'ease-in-out-quad'  => t('Ease-in-out-quad'),
+    'ease-in-cubic'     => t('Ease-in-cubic'),
+    'ease-out-cubic'    => t('Ease-out-cubic'),
+    'ease-in-out-cubic' => t('Ease-in-out-cubic'),
+    'ease-in-quart'     => t('Ease-in-quart'),
+    'ease-out-quart'    => t('Ease-out-quart'),
+    'ease-in-out-quart' => t('Ease-in-out-quart'),
+    'ease-in-out-quart' => t('Ease-in-out-quart'),
+  ];
+}

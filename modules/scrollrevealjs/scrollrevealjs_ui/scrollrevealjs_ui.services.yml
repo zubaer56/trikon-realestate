@@ -1,0 +1,6 @@
+services:
+  scrollrevealjs.target_manager:
+    class: Drupal\scrollrevealjs_ui\ScrollRevealManager
+    arguments: [ '@database' ]
+    tags:
+      - { name: backend_overridable }

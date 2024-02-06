@@ -1,0 +1,47 @@
+scrollreveal.admin:
+  path: '/admin/config/user-interface/scrollreveal'
+  defaults:
+    _form: '\Drupal\scrollrevealjs_ui\ScrollRevealAdmin'
+    _title: 'ScrollReveal'
+  requirements:
+    _permission: 'administer scrollreveal js'
+
+scrollreveal.add:
+  path: '/admin/config/user-interface/scrollreveal/add'
+  defaults:
+    _form: '\Drupal\scrollrevealjs_ui\Form\ScrollRevealForm'
+    _title: 'Add Target'
+  requirements:
+    _permission: 'administer scrollreveal js'
+
+scrollreveal.edit:
+  path: '/admin/config/user-interface/scrollreveal/edit/{sid}'
+  defaults:
+    _form: '\Drupal\scrollrevealjs_ui\Form\ScrollRevealForm'
+    _title: 'Edit Target'
+  requirements:
+    _permission: 'administer scrollreveal js'
+
+scrollreveal.delete:
+  path: '/admin/config/user-interface/scrollreveal/delete/{sid}'
+  defaults:
+    _form: '\Drupal\scrollrevealjs_ui\Form\ScrollRevealDelete'
+    _title: 'Delete Target'
+  requirements:
+    _permission: 'administer scrollreveal js'
+
+scrollreveal.duplicate:
+  path: '/admin/config/user-interface/scrollreveal/duplicate/{sid}'
+  defaults:
+    _form: '\Drupal\scrollrevealjs_ui\Form\ScrollRevealDuplicate'
+    _title: 'Duplicate Target'
+  requirements:
+    _permission: 'administer scrollreveal js'
+
+scrollreveal.settings:
+  path: '/admin/config/user-interface/scrollreveal/settings'
+  defaults:
+    _form: '\Drupal\scrollrevealjs_ui\Form\ScrollRevealSettings'
+    _title: 'Settings'
+  requirements:
+    _permission: 'administer scrollreveal js'

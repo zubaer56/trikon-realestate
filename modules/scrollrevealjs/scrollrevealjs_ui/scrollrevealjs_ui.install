@@ -1,0 +1,98 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the ScrollReveal JS module.
+ */
+
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_schema().
+ */
+function scrollrevealjs_ui_schema() {
+  $schema['scrollreveal'] = [
+    'description' => 'Stores scrollreveal js selectors.',
+    'fields' => [
+      'sid' => [
+        'description' => 'Primary Key: unique ID for scrollreveal js selectors.',
+        'type'        => 'serial',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+      ],
+      'target' => [
+        'description' => 'Target of scrollreveal js.',
+        'type'        => 'varchar',
+        'length'      => 255,
+        'not null'    => TRUE,
+        'default'     => '',
+      ],
+      'label' => [
+        'description' => 'Label of scrollreveal js.',
+        'type'        => 'varchar',
+        'length'      => 255,
+        'not null'    => TRUE,
+        'default'     => '',
+      ],
+      'comment' => [
+        'description' => 'Comment for scrollreveal js.',
+        'type'        => 'text',
+        'size'        => 'big',
+        'not null'    => TRUE,
+      ],
+      'changed' => [
+        'description' => 'Timestamp when the animate was most recently modified.',
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
+        'size'        => 'big',
+      ],
+      'status' => [
+        'description' => 'Boolean indicating whether the animate is enabled.',
+        'type'        => 'int',
+        'not null'    => FALSE,
+        'default'     => 0,
+        'size'        => 'tiny',
+      ],
+      'options' => [
+        'type'        => 'blob',
+        'not null'    => TRUE,
+        'size'        => 'big',
+        'description' => 'The options data in serialized form.',
+      ],
+    ],
+    'indexes' => [
+      'label'   => ['label'],
+      'target'  => ['target'],
+      'changed' => ['changed'],
+    ],
+    'primary key' => ['sid'],
+  ];
+  return $schema;
+}
+
+/**
+ * Implements hook_install().
+ */
+function scrollrevealjs_ui_install() {
+  // Add ScrollReveal JS settings link status.
+  \Drupal::messenger()->addStatus(t('Configure ScrollReveal JS <a href=":settings">global settings</a>.', [
+    ':settings' => Url::fromRoute('scrollreveal.settings')->toString(),
+  ]));
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function scrollrevealjs_ui_uninstall() {
+  // If uninstall and re-install scrollrevealjs_ui module will show error:
+  // Unable to install ScrollReveal UI, scrollrevealjs.settings already
+  // exists in active configuration.
+  $query = \Drupal::database()->delete('config');
+  // Delete set variables in scrollrevealjs_ui uninstall, because
+  // of name "scrollrevealjs.settings" it will delete in "scrollrevealjs"
+  // module uninstall, will not delete in "scrollrevealjs_ui" uninstall.
+  $query->condition('name', 'scrollrevealjs.settings');
+  $query->execute();
+}
